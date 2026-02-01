@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, RefreshCcw } from 'lucide-react';
+import { Sparkles, RefreshCcw, History } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { LottoBall } from '../../components/LottoBall';
 import { AIStatus } from '../../components/AIStatus';
 import { LottoMachine } from '../../components/LottoMachine';
@@ -128,28 +129,83 @@ const ActionButton = styled(motion.button)`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+    gap: 0.75rem;
+    width: 100%;
+  }
+`;
+
 const ResetButton = styled.button`
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  margin-top: 1.5rem;
-  transition: color 0.2s;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
   
   &:hover {
     color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
-    margin-top: 1rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
+  }
+`;
+
+const HistoryButton = styled.button`
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  transition: all 0.2s;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
   }
 `;
 
 export const Main = () => {
+  const navigate = useNavigate();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [extractedNumbers, setExtractedNumbers] = useState<number[]>([]);
   const [currentExtraction, setCurrentExtraction] = useState<number | null>(null);
@@ -235,7 +291,7 @@ export const Main = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <Title>AI 행운의<br />로또 추첨기</Title>
+      <Title>AI 행운번호</Title>
       <Subtitle>
         인공지능이 과거 당첨 패턴을 정밀 분석하여<br />당신에게 찾아올 행운의 번호를 예측합니다.
       </Subtitle>
@@ -298,10 +354,16 @@ export const Main = () => {
                       AI 번호 생성하기
                     </ActionButton>
                   ) : (
-                    <ResetButton onClick={generateNumbers}>
-                      <RefreshCcw size={16} />
-                      다시 생성하기
-                    </ResetButton>
+                    <ButtonContainer>
+                      <ResetButton onClick={generateNumbers}>
+                        <RefreshCcw size={16} />
+                        다시 생성하기
+                      </ResetButton>
+                      <HistoryButton onClick={() => navigate('/history')}>
+                        <History size={16} />
+                        이전 추첨기록 보기
+                      </HistoryButton>
+                    </ButtonContainer>
                   )}
                 </>
               )}
