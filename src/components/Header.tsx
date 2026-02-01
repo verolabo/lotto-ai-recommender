@@ -73,27 +73,6 @@ const Nav = styled.nav`
   }
 `;
 
-const ContactButton = styled.button`
-  background: rgba(0, 247, 255, 0.1);
-  border: 1px solid rgba(0, 247, 255, 0.3);
-  color: #00f7ff;
-  padding: 0.5rem 1.25rem;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  
-  &:hover {
-    background: rgba(0, 247, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
-  }
-
-  @media (max-width: 768px) {
-    display: none; /* Hide action button on mobile to save space */
-  }
-`;
-
 export const Header = () => {
   return (
     <HeaderContainer>
