@@ -1,8 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, RefreshCcw, History } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Sparkles, RefreshCcw } from 'lucide-react';
 import { LottoBall } from '../../components/LottoBall';
 import { AIStatus } from '../../components/AIStatus';
 import { LottoMachine } from '../../components/LottoMachine';
@@ -182,7 +181,6 @@ const ResetButton = styled.button`
 
 
 export const Main = () => {
-  const navigate = useNavigate();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [extractedNumbers, setExtractedNumbers] = useState<number[]>([]);
   const [currentExtraction, setCurrentExtraction] = useState<number | null>(null);
